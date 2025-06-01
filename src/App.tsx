@@ -1,8 +1,16 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+
 function App() {
+  // const subdomain = window.location.hostname.split(".")[0];
+  // const isMainApp = window.location.hostname === "localhost";
   return (
-    <div className="text-3xl text-green-500">
-      This is a React app with Tailwind CSS and TypeScript!
-    </div>
+    <AuthProvider>
+      <BrowserRouter />
+      <Routes>
+        <Route path="/" element={<div>Main App</div>} />
+      </Routes>
+    </AuthProvider>
   );
 }
 
