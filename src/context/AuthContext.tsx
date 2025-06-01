@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import api from "../api/axios";
 
 
@@ -9,7 +9,7 @@ interface AuthContextType {
   loading: boolean;
 }
 
-const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }:{children: React.ReactNode}) => {
   const [user, setUser] = useState(null);
@@ -37,4 +37,4 @@ export const AuthProvider = ({ children }:{children: React.ReactNode}) => {
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+
