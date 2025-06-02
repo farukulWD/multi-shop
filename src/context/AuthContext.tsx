@@ -13,7 +13,7 @@ export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }:{children: React.ReactNode}) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const fetchProfile = async () => {
     try {
@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }:{children: React.ReactNode}) => {
   };
 
   useEffect(() => {
-    fetchProfile();
+    // fetchProfile();
   }, []);
 
   return (
