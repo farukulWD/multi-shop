@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import Signup from "../pages/Signup";
 import Signin from "../pages/Signin";
-import SingUpAndSignIn from "../layout/SingupAndSignIn";
+import SingUpAndSignIn from "../layout/SingUpAndSignIn";
+
 
 export const router = createBrowserRouter([
   {
