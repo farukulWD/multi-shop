@@ -17,6 +17,6 @@ export default function ProtectedRoute({
   ) : isMainApp ? (
     <Navigate to="/auth/sign-in" replace />
   ) : (
-    window.location.href = `http://localhost:5173/auth/sign-in`
+    window.location.href = `https://multi-shop-ecru.vercel.app/auth/sign-in`
   );
 }
