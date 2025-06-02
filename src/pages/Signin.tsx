@@ -1,7 +1,6 @@
 import { useState } from "react";
-import api from "../api/axios";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { Link } from "react-router-dom";
+
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Form,
@@ -39,8 +38,6 @@ export default function Signin() {
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
-  const navigate = useNavigate();
-  const { setUser } = useAuth();
 
   const handleSubmit = async (data: z.infer<typeof formSchema>) => {
     setPending(true);
