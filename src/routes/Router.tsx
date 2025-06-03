@@ -66,5 +66,19 @@ export const router = createBrowserRouter(
           path: "*",
           element: <NotFound />,
         },
+        {
+          path: "auth",
+          element: <SingUpAndSignIn />,
+          children: [
+            {
+              path: "sign-up",
+              element: <Signup />,
+            },
+            {
+              path: "sign-in",
+              element: <Signin />,
+            },
+          ],
+        },
       ]
 );
