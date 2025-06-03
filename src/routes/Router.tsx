@@ -10,7 +10,12 @@ import NotFound from "@/pages/NotFound";
 
 const subdomain = window.location.hostname.split(".")[0];
 const isMainApp = window.location.hostname === import.meta.env.VITE_BASE_URL;
-console.log(isMainApp, subdomain, import.meta.env.VITE_BASE_URL);
+console.log({
+  isMainApp,
+  subdomain,
+  hostname: window.location.hostname,
+  baseUrl: import.meta.env.VITE_BASE_URL,
+});
 
 export const router = createBrowserRouter(
   isMainApp
