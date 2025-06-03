@@ -10,7 +10,7 @@ export default function ProtectedRoute({
   const { user, loading } = useAuth();
   const subdomain = window.location.hostname.split(".")[0];
   const isMainApp = window.location.hostname === "multi-shop-ecru.vercel.app";
-
+console.log(subdomain, isMainApp);
 
   if (loading) return <LoadingSpinner />;
   return user ? children : <Navigate to="/auth/sign-in" />;
