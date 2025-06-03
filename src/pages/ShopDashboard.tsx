@@ -1,11 +1,26 @@
-
-
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   ArrowUpRight,
   DollarSign,
@@ -17,8 +32,16 @@ import {
   Plus,
   Download,
   Filter,
-} from "lucide-react"
-import { Bar, BarChart, Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
+} from "lucide-react";
+import {
+  Bar,
+  BarChart,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 const salesData = [
   { month: "Jan", revenue: 4500, orders: 89 },
@@ -27,22 +50,52 @@ const salesData = [
   { month: "Apr", revenue: 6100, orders: 118 },
   { month: "May", revenue: 5900, orders: 112 },
   { month: "Jun", revenue: 7200, orders: 135 },
-]
+];
 
 const recentOrders = [
-  { id: "#3210", customer: "Alice Johnson", product: "Wireless Headphones", amount: 129.99, status: "completed" },
-  { id: "#3209", customer: "Bob Smith", product: "Smart Watch", amount: 299.99, status: "processing" },
-  { id: "#3208", customer: "Carol Davis", product: "Bluetooth Speaker", amount: 79.99, status: "completed" },
-  { id: "#3207", customer: "David Wilson", product: "Phone Case", amount: 24.99, status: "shipped" },
-  { id: "#3206", customer: "Eva Brown", product: "Laptop Stand", amount: 89.99, status: "completed" },
-]
+  {
+    id: "#3210",
+    customer: "Alice Johnson",
+    product: "Wireless Headphones",
+    amount: 129.99,
+    status: "completed",
+  },
+  {
+    id: "#3209",
+    customer: "Bob Smith",
+    product: "Smart Watch",
+    amount: 299.99,
+    status: "processing",
+  },
+  {
+    id: "#3208",
+    customer: "Carol Davis",
+    product: "Bluetooth Speaker",
+    amount: 79.99,
+    status: "completed",
+  },
+  {
+    id: "#3207",
+    customer: "David Wilson",
+    product: "Phone Case",
+    amount: 24.99,
+    status: "shipped",
+  },
+  {
+    id: "#3206",
+    customer: "Eva Brown",
+    product: "Laptop Stand",
+    amount: 89.99,
+    status: "completed",
+  },
+];
 
 const topProducts = [
   { name: "Wireless Headphones", sales: 145, revenue: 18850 },
   { name: "Smart Watch", sales: 89, revenue: 26699 },
   { name: "Bluetooth Speaker", sales: 67, revenue: 5359 },
   { name: "Phone Case", sales: 234, revenue: 5849 },
-]
+];
 
 export default function ShopDashboard({ shop = "Demo" }: { shop?: string }) {
   return (
@@ -52,8 +105,13 @@ export default function ShopDashboard({ shop = "Demo" }: { shop?: string }) {
         <div className="px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">{shop} Shop Dashboard</h1>
-              <p className="text-gray-600 mt-1">Welcome back! Here's what's happening with your store today.</p>
+              <h1 className="text-3xl font-bold text-gray-900">
+                <span className="text-green-500" style={{ textTransform: "capitalize" }}>{shop}</span>{" "}
+                Dashboard
+              </h1>
+              <p className="text-gray-600 mt-1">
+                Welcome back! Here's what's happening with your store today.
+              </p>
             </div>
             <div className="flex gap-3">
               <Button variant="outline" className="gap-2">
@@ -70,11 +128,13 @@ export default function ShopDashboard({ shop = "Demo" }: { shop?: string }) {
       </div>
 
       <div className="p-6 space-y-6">
-        {/* Key Metrics */}
+        <strong className="text-red-500 font-semibold ">Everything is static data not functional</strong>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Total Revenue
+              </CardTitle>
               <DollarSign className="h-4 w-4 text-green-700" />
             </CardHeader>
             <CardContent>
@@ -147,7 +207,9 @@ export default function ShopDashboard({ shop = "Demo" }: { shop?: string }) {
                 <TrendingUp className="h-5 w-5 text-green-700" />
                 Revenue Overview
               </CardTitle>
-              <CardDescription>Monthly revenue for the past 6 months</CardDescription>
+              <CardDescription>
+                Monthly revenue for the past 6 months
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <ChartContainer
@@ -183,7 +245,9 @@ export default function ShopDashboard({ shop = "Demo" }: { shop?: string }) {
                 <ShoppingCart className="h-5 w-5 text-green-700" />
                 Orders Overview
               </CardTitle>
-              <CardDescription>Monthly orders for the past 6 months</CardDescription>
+              <CardDescription>
+                Monthly orders for the past 6 months
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <ChartContainer
@@ -200,7 +264,11 @@ export default function ShopDashboard({ shop = "Demo" }: { shop?: string }) {
                     <XAxis dataKey="month" />
                     <YAxis />
                     <ChartTooltip content={<ChartTooltipContent />} />
-                    <Bar dataKey="orders" fill="#15803d" radius={[4, 4, 0, 0]} />
+                    <Bar
+                      dataKey="orders"
+                      fill="#15803d"
+                      radius={[4, 4, 0, 0]}
+                    />
                   </BarChart>
                 </ResponsiveContainer>
               </ChartContainer>
@@ -225,7 +293,9 @@ export default function ShopDashboard({ shop = "Demo" }: { shop?: string }) {
             <Card>
               <CardHeader>
                 <CardTitle>Recent Orders</CardTitle>
-                <CardDescription>Latest orders from your customers</CardDescription>
+                <CardDescription>
+                  Latest orders from your customers
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <Table>
@@ -242,7 +312,9 @@ export default function ShopDashboard({ shop = "Demo" }: { shop?: string }) {
                   <TableBody>
                     {recentOrders.map((order) => (
                       <TableRow key={order.id}>
-                        <TableCell className="font-medium">{order.id}</TableCell>
+                        <TableCell className="font-medium">
+                          {order.id}
+                        </TableCell>
                         <TableCell>{order.customer}</TableCell>
                         <TableCell>{order.product}</TableCell>
                         <TableCell>${order.amount}</TableCell>
@@ -252,10 +324,14 @@ export default function ShopDashboard({ shop = "Demo" }: { shop?: string }) {
                               order.status === "completed"
                                 ? "default"
                                 : order.status === "processing"
-                                  ? "secondary"
-                                  : "outline"
+                                ? "secondary"
+                                : "outline"
                             }
-                            className={order.status === "completed" ? "bg-green-700 hover:bg-green-800" : ""}
+                            className={
+                              order.status === "completed"
+                                ? "bg-green-700 hover:bg-green-800"
+                                : ""
+                            }
                           >
                             {order.status}
                           </Badge>
@@ -277,7 +353,9 @@ export default function ShopDashboard({ shop = "Demo" }: { shop?: string }) {
             <Card>
               <CardHeader>
                 <CardTitle>Top Performing Products</CardTitle>
-                <CardDescription>Your best-selling products this month</CardDescription>
+                <CardDescription>
+                  Your best-selling products this month
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <Table>
@@ -292,9 +370,13 @@ export default function ShopDashboard({ shop = "Demo" }: { shop?: string }) {
                   <TableBody>
                     {topProducts.map((product, index) => (
                       <TableRow key={index}>
-                        <TableCell className="font-medium">{product.name}</TableCell>
+                        <TableCell className="font-medium">
+                          {product.name}
+                        </TableCell>
                         <TableCell>{product.sales} units</TableCell>
-                        <TableCell>${product.revenue.toLocaleString()}</TableCell>
+                        <TableCell>
+                          ${product.revenue.toLocaleString()}
+                        </TableCell>
                         <TableCell>
                           <Button variant="ghost" size="sm">
                             <Eye className="h-4 w-4" />
@@ -338,5 +420,5 @@ export default function ShopDashboard({ shop = "Demo" }: { shop?: string }) {
         </Card>
       </div>
     </div>
-  )
+  );
 }
