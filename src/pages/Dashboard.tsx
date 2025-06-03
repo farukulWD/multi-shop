@@ -1,9 +1,9 @@
 import { useAuth } from "@/hooks/useAuth";
 import api from "../api/axios";
-import { Navbar } from "./navbar";
 import { useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { DashboardContent } from "./DashboardCcontent";
+import { Navbar } from "./Navbar";
 
 export default function Dashboard() {
   const { user, setUser } = useAuth();
