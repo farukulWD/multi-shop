@@ -8,8 +8,10 @@ import ShopDashboard from "@/pages/ShopDashboard";
 import ProtectedRoute from "./ProtectedRoute";
 import NotFound from "@/pages/NotFound";
 
+
 const subdomain = window.location.hostname.split(".")[0];
-const isMainApp = window.location.hostname === process.env.VITE_BASE_URL;
+const isMainApp = window.location.hostname === import.meta.env.VITE_BASE_URL;
+console.log(isMainApp, subdomain);
 
 export const router = createBrowserRouter(
   isMainApp
