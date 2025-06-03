@@ -63,20 +63,7 @@ export const router = createBrowserRouter(
           ),
         },
 
-        {
-          path: "auth",
-          element: <SingUpAndSignIn />,
-          children: [
-            {
-              path: "sign-up",
-              element: <Signup />,
-            },
-            {
-              path: "sign-in",
-              element: <Signin />,
-            },
-          ],
-        },
+       
         {
           path: "*",
           element: <NotFound />,
