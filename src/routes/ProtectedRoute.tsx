@@ -11,12 +11,7 @@ export default function ProtectedRoute({
   const subdomain = window.location.hostname.split(".")[0];
   const isMainApp = window.location.hostname === "multi-shop-ecru.vercel.app";
 
+
   if (loading) return <LoadingSpinner />;
-  return user ? (
-    children
-  ) : isMainApp ? (
-    <Navigate to="/auth/sign-in" replace />
-  ) : (
-    window.location.href = `https://multi-shop-ecru.vercel.app/auth/sign-in`
-  );
+  return user ? children : <Navigate to="/auth/sign-in" />;
 }
