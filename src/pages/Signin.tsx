@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -18,9 +18,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import api from "@/api/axios";
+import { useAuth } from "@/hooks/useAuth";
 
 const formSchema = z.object({
-  email: z.string().min(2).email("Invalid email address"),
+  username: z.string().min(2, { message: "Invalid username" }),
   password: z.string().min(1, "Password must be required"),
   rememberMe: z.boolean().optional().default(false),
 });
@@ -29,7 +31,7 @@ export default function Signin() {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
       rememberMe: false,
     },
@@ -37,36 +39,29 @@ export default function Signin() {
 
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
-
+  const { setUser } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (data: z.infer<typeof formSchema>) => {
     setPending(true);
     setError(null);
-    console.log({data})
-    // try {
-    //   const response = await api.post("/auth/signin", data);
-    //   console.log(response.data);
-    //   await api.get("/auth/profile").then((res) => setUser(res.data));
-    //   navigate("/");
-    // } catch (err) {
-    //   if (
-    //     err &&
-    //     typeof err === "object" &&
-    //     "response" in err &&
-    //     err.response &&
-    //     typeof err.response === "object" &&
-    //     "data" in err.response &&
-    //     err.response.data &&
-    //     typeof err.response.data === "object" &&
-    //     "message" in err.response.data
-    //   ) {
-    //     setError((err.response as any).data.message);
-    //   } else {
-    //     setError("Signin failed");
-    //   }
-    // } finally {
-    //   setPending(false);
-    // }
+
+    try {
+      const response = await api.post("/auth/sign-in", data);
+
+      await api
+        .get("/auth/profile")
+        .then((res) => {
+          console.log("data=>",res?.data?.data)
+          setUser(res?.data?.data);
+        });
+      navigate("/");
+      
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setPending(false);
+    }
   };
 
   return (
@@ -88,15 +83,15 @@ export default function Signin() {
                 <div className="grid gap-3">
                   <FormField
                     control={form.control}
-                    name="email"
+                    name="username"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel>Username</FormLabel>
                         <FormControl>
                           <Input
-                            type="email"
+                            type="text"
                             {...field}
-                            placeholder="m@example.com"
+                            placeholder="Enter your username"
                           />
                         </FormControl>
                         <FormMessage />

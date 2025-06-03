@@ -4,6 +4,7 @@ import api from '../api/axios';
 
 export default function Dashboard() {
   const { user, setUser } = useAuth();
+ 
 
   const handleLogout = async () => {
     if (window.confirm('Are you sure to logout?')) {
@@ -20,10 +21,10 @@ export default function Dashboard() {
       </div>
       <h2 className="mt-4">Your Shops:</h2>
       <ul className="list-disc ml-6">
-        {user.shops.map((shop:any) => (
-          <li key={shop}>
-            <a href={`http://${shop}.localhost:5173`} className="text-blue-600 underline">
-              {shop}
+        {user?.shops?.map((shop:any) => (
+          <li key={shop?._id}>
+            <a href={`http://${shop?.name}.localhost:5173`} className="text-blue-600 underline">
+              {shop?.name}
             </a>
           </li>
         ))}
