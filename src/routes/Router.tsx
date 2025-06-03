@@ -62,10 +62,7 @@ export const router = createBrowserRouter(
             </ProtectedRoute>
           ),
         },
-        {
-          path: "*",
-          element: <NotFound />,
-        },
+
         {
           path: "auth",
           element: <SingUpAndSignIn />,
@@ -79,6 +76,10 @@ export const router = createBrowserRouter(
               element: <Signin />,
             },
           ],
+        },
+        {
+          path: "*",
+          element: <NotFound />,
         },
       ]
 );
