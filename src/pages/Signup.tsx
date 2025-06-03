@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertTitle } from "@/components/ui/alert";
-import { OctagonAlertIcon } from "lucide-react";
+import { Eye, EyeOff, OctagonAlertIcon } from "lucide-react";
 
 // Define schema with zod
 const formSchema = z.object({
@@ -37,7 +37,7 @@ export default function Signup() {
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
-
+  const [showPassword, setShowPassword] = useState(false);
   type SignupFormValues = z.infer<typeof formSchema>;
 
   const form = useForm<SignupFormValues>({
@@ -116,11 +116,25 @@ export default function Signup() {
                       <FormItem>
                         <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input
-                            type="password"
-                            {...field}
-                            placeholder="********"
-                          />
+                          <div className="relative">
+                            <Input
+                              type={showPassword ? "text" : "password"}
+                              {...field}
+                              placeholder="*********"
+                              className="pr-10"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => setShowPassword((prev) => !prev)}
+                              className="absolute cursor-pointer  right-2 top-1/2 -translate-y-1/2 text-sm text-muted-foreground focus:outline-none"
+                            >
+                              {showPassword ? (
+                                <EyeOff className="w-4  h-4" />
+                              ) : (
+                                <Eye className="w-4 h-4" />
+                              )}
+                            </button>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>

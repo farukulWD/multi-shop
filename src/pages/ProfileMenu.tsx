@@ -35,11 +35,13 @@ export function ProfileMenu() {
     setUser(null);
   };
 
+  console.log(window.location.host)
+
   return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button className="flex items-center gap-2 rounded-full outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+          <button className="flex items-center cursor-pointer  gap-2 rounded-full outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
             <Avatar className="h-8 w-8 border-2 border-green-700">
               <AvatarImage
                 src="/placeholder.svg?height=32&width=32"
@@ -77,7 +79,7 @@ export function ProfileMenu() {
           <DropdownMenuLabel>Your Shops</DropdownMenuLabel>
           {shops.map((shop: { name: string; _id: string }) => (
             <a
-              href={`http://${shop?.name}.localhost:5173`}
+              href={`http://${shop?.name}.${window.location.host}`}
               className="text-green-700 mb-0.4 flex items-center gap-2 rounded-md px-2 py-1 text-sm hover:bg-green-100 focus:bg-green-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               <Store className=" h-4 w-4 text-green-700" />
@@ -107,7 +109,7 @@ export function ProfileMenu() {
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleLogout}
-              className="bg-green-700 hover:bg-green-800"
+              className="bg-green-700 cursor-pointer hover:bg-green-800"
             >
               Log out
             </AlertDialogAction>

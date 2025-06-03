@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertTitle } from "@/components/ui/alert";
-import { OctagonAlertIcon } from "lucide-react";
+import { Eye, EyeOff, OctagonAlertIcon } from "lucide-react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -41,6 +41,7 @@ export default function Signin() {
   const [pending, setPending] = useState(false);
   const { setUser } = useAuth();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (data: z.infer<typeof formSchema>) => {
     setPending(true);
@@ -49,14 +50,11 @@ export default function Signin() {
     try {
       const response = await api.post("/auth/sign-in", data);
 
-      await api
-        .get("/auth/profile")
-        .then((res) => {
-          console.log("data=>",res?.data?.data)
-          setUser(res?.data?.data);
-        });
+      await api.get("/auth/profile").then((res) => {
+        console.log("data=>", res?.data?.data);
+        setUser(res?.data?.data);
+      });
       navigate("/");
-      
     } catch (err) {
       console.log(err);
     } finally {
@@ -105,11 +103,21 @@ export default function Signin() {
                       <FormItem>
                         <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input
-                            type="password"
-                            {...field}
-                            placeholder="*********"
-                          />
+                          <div className="relative">
+                            <Input
+                              type={showPassword ? "text" : "password"}
+                              {...field}
+                              placeholder="*********"
+                              className="pr-10"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => setShowPassword((prev) => !prev)}
+                              className="absolute cursor-pointer  right-2 top-1/2 -translate-y-1/2 text-sm text-muted-foreground focus:outline-none"
+                            >
+                            {showPassword ? <EyeOff  className="w-4  h-4" /> : <Eye className="w-4 h-4" />}
+                            </button>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
