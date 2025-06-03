@@ -59,25 +59,13 @@ const {
     setPending(true);
     try {
       const payload = { ...data, shops: data.shops.filter(Boolean) };
-      const res = await api.post("/auth/signup", payload);
+      const res = await api.post("/user/sign-up", payload);
       alert(res.data.message);
       navigate("/signin");
     } catch (err) {
-      if (
-        err &&
-        typeof err === "object" &&
-        "response" in err &&
-        err.response &&
-        typeof err.response === "object" &&
-        "data" in err.response &&
-        err.response.data &&
-        typeof err.response.data === "object" &&
-        "message" in err.response.data
-      ) {
-        setError((err.response as any).data.message || "Signup failed");
-      } else {
-        setError("Signup failed");
-      }
+      if (err)
+        console.log(err)
+          
     } finally {
       setPending(false);
     }
