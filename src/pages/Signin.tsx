@@ -49,6 +49,7 @@ export default function Signin() {
 
     try {
       const response = await api.post("/auth/sign-in", data);
+      localStorage.setItem("token", response?.data?.data?.token);
 
       await api.get("/auth/profile").then((res) => {
         console.log("data=>", res?.data?.data);
@@ -115,7 +116,11 @@ export default function Signin() {
                               onClick={() => setShowPassword((prev) => !prev)}
                               className="absolute cursor-pointer  right-2 top-1/2 -translate-y-1/2 text-sm text-muted-foreground focus:outline-none"
                             >
-                            {showPassword ? <EyeOff  className="w-4  h-4" /> : <Eye className="w-4 h-4" />}
+                              {showPassword ? (
+                                <EyeOff className="w-4  h-4" />
+                              ) : (
+                                <Eye className="w-4 h-4" />
+                              )}
                             </button>
                           </div>
                         </FormControl>
