@@ -1,34 +1,23 @@
-
-import { useAuth } from '@/hooks/useAuth';
-import api from '../api/axios';
+import { useAuth } from "@/hooks/useAuth";
+import api from "../api/axios";
+import { Navbar } from "./navbar";
+import { useState } from "react";
+import { Sidebar } from "./Sidebar";
+import { DashboardContent } from "./DashboardCcontent";
 
 export default function Dashboard() {
   const { user, setUser } = useAuth();
- 
+  const [collapsed, setCollapsed] = useState(false);
 
-  const handleLogout = async () => {
-    if (window.confirm('Are you sure to logout?')) {
-      await api.post('/auth/logout');
-      setUser(null);
-    }
-  };
-// TODO: Fix the type of user and shops
+  
+  // TODO: Fix the type of user and shops
   return (
-    <div className="p-4">
-      <div className="flex justify-between items-center">
-        <h1 className="text-xl font-bold">Welcome, {user.username}</h1>
-        <button onClick={handleLogout} className="btn">Logout</button>
+    <div className="min-h-screen bg-background flex">
+      <Sidebar collapsed={collapsed} />
+      <div className="flex flex-col flex-1">
+        <Navbar onMenuClick={() => setCollapsed(!collapsed)} />
+        <DashboardContent />
       </div>
-      <h2 className="mt-4">Your Shops:</h2>
-      <ul className="list-disc ml-6">
-        {user?.shops?.map((shop:any) => (
-          <li key={shop?._id}>
-            <a href={`http://${shop?.name}.localhost:5173`} className="text-blue-600 underline">
-              {shop?.name}
-            </a>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }

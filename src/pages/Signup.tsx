@@ -22,9 +22,15 @@ import { OctagonAlertIcon } from "lucide-react";
 // Define schema with zod
 const formSchema = z.object({
   username: z.string().min(2, "Username is required"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-  shops: z.array(z.object({ name: z.string().min(1, "Shop name is required") })).max(4, "You can add up to 4 shops"),
-
+  password: z
+    .string()
+    .min(8, "Password must be at least 8 characters.")
+    .regex(/\d/, "Must contain at least one number.")
+    .regex(/[!@#$%^&*(),.?":{}|<>]/, "Must contain one special character."),
+  shops: z
+    .array(z.object({ name: z.string().min(3, "Shop name is required") }))
+    .min(3, "You must add at least 3 shops")
+    .max(4, "You can add up to 4 shops"),
 });
 
 export default function Signup() {
@@ -32,27 +38,29 @@ export default function Signup() {
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
-  
+  type SignupFormValues = z.infer<typeof formSchema>;
 
-type SignupFormValues = z.infer<typeof formSchema>;
+  const form = useForm<SignupFormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+      password: "",
+      shops: [{ name: "" }, { name: "" }, { name: "" }],
+    },
+    mode: "onChange",
+  });
 
-const form = useForm<SignupFormValues>({
-  resolver: zodResolver(formSchema),
-  defaultValues: {
-    username: "",
-    password: "",
-    shops: [{ name: "" }],
-  },
-});
+  const { watch } = form;
 
-const {
-  fields: shopFields,
-  append,
-  update,
-} = useFieldArray({
-  control: form.control,
-  name: "shops",
-});
+  const {
+    fields: shopFields,
+    append,
+    remove,
+    update,
+  } = useFieldArray({
+    control: form.control,
+    name: "shops",
+  });
 
   const handleSubmit = async (data: z.infer<typeof formSchema>) => {
     setError(null);
@@ -63,9 +71,7 @@ const {
       alert(res.data.message);
       navigate("/signin");
     } catch (err) {
-      if (err)
-        console.log(err)
-          
+      if (err) console.log(err);
     } finally {
       setPending(false);
     }
@@ -120,6 +126,12 @@ const {
                       </FormItem>
                     )}
                   />
+                  {!!error && (
+                    <Alert className="bg-destructive/10 border-none">
+                      <OctagonAlertIcon className="h-4 w-4 !text-destructive" />
+                      <AlertTitle>{error}</AlertTitle>
+                    </Alert>
+                  )}
 
                   {shopFields.map((field, index) => (
                     <FormField
@@ -128,7 +140,21 @@ const {
                       name={`shops.${index}.name`}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Shop {index + 1}</FormLabel>
+                          <FormLabel>
+                            Shop {index + 1}{" "}
+                            {shopFields.length > 3 &&
+                              index === shopFields.length - 1 && (
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="sm"
+                                  className="ml-2 text-destructive"
+                                  onClick={() => remove(index)}
+                                >
+                                  Remove
+                                </Button>
+                              )}
+                          </FormLabel>
                           <FormControl>
                             <Input
                               {...field}
