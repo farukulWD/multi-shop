@@ -31,6 +31,7 @@ export function ProfileMenu() {
 
   const handleLogout = async () => {
     await api.post("/auth/logout");
+    localStorage.removeItem("token");
     setLogoutDialogOpen(false);
     setUser(null);
   };
