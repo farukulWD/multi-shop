@@ -1,54 +1,98 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🌐 Multi Shop - Frontend (React + Vite )
 
-Currently, two official plugins are available:
+A modern Vite + React frontend for the Multi Shop Auth System with support for secure subdomain-based shop dashboards.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Signup Page**
+  - Username
+  - Password (with validation)
+  - Minimum 3 unique shop names
+- **Signin Page**
+  - “Remember Me” support
+  - Validation for wrong credentials
+- **Dashboard**
+  - Profile icon shows shop list
+  - Logout with confirmation
+- **Shop Dashboards**
+  - Access via `http://<shopname>.localhost:5173`
+  - Auth persistence across subdomains
+  - Loading spinner while verifying token
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+---
+
+## 📦 Folder Structure
+
+```
+client/
+├── public/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── context/
+│   ├── services/
+│   ├── utils/
+│   └── App.tsx
+├── .env.example
+├── index.html
+└── vite.config.ts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ⚙️ Setup Instructions
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+### 1. Clone the Repo
+```bash
+git clone https://github.com/farukulwd/multi-shop.git
+cd multi-shop
 ```
+
+### 2. Install Dependencies
+```bash
+npm install
+```
+
+### 3. Configure Environment
+Create a `.env` file based on `.env.example`:
+
+```env
+VITE_API_URL=http://localhost:5000/api/v1
+```
+
+### 4. Run the Client
+```bash
+npm run dev
+```
+
+Frontend runs at: `http://localhost:5173`
+
+---
+
+## 🧪 Notes for Subdomain Setup (Local)
+
+YOu need run the project locally because vercel not support subdomain
+
+---
+
+## ✅ Tech Stack
+
+- React (Vite)
+- React Router
+- Context API
+- JWT Token Handling
+- Axios
+- Tailwind CSS (optional)
+
+---
+
+## 🧠 Key Concepts
+
+- Cross-subdomain cookie-based auth
+- Dynamic routing for shop dashboards
+- Spinner-based session verification
+- Persistent auth using secure cookies
+- Clean, modular folder structure
